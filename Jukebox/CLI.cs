@@ -76,6 +76,7 @@ namespace Jukebox
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Type: 'SHUFFLE' for a random song.");
             Console.WriteLine("Type: 'ADD' to create new song.");
+            Console.WriteLine("Type: 'SING' to play a song.");
             Console.WriteLine($"Type: 'LIST' to see all {_singer.SongCount()} songs in memory.");
             Console.WriteLine("Type: 'EXIT' to quit the Jukebox.");
             Console.WriteLine("What would you like to do?");
@@ -104,8 +105,10 @@ namespace Jukebox
                 Console.WriteLine("****************");
                 Console.WriteLine("==== TITLES ====");
                 Console.WriteLine("****************");
+                Console.ForegroundColor = ConsoleColor.White;
                 _singer.GetTitles().ForEach(title => Console.WriteLine(title));
                 Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Type ':q' to go back to the main menu.");
                 _state = Console.ReadLine();
             }
@@ -114,8 +117,35 @@ namespace Jukebox
 
         private void Sing()
         {
-            var selectSongTitle = Console.ReadLine();
-            Console.WriteLine($"Im singing {selectSongTitle}");
+            while (_state != ":q")
+            {
+                Console.Clear();
+                Console.WriteLine("*********************");
+                Console.WriteLine("==== SELECT SONG ====");
+                Console.WriteLine("*********************");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Enter song name or ':q' to go back to main menu.");
+                _state = Console.ReadLine();
+                if (_state != ":q")
+                {
+                    Console.WriteLine("Looking for song...");
+                    Thread.Sleep(3000);
+                    var lyrics = _singer.GetSong(_state);
+                    if (lyrics == null)
+                    {
+                        Console.WriteLine($"Song {_state} not found.");
+                        Thread.Sleep(1000);
+                        continue;
+                    }
+                    Console.Clear();
+                    Console.WriteLine($"Now playing {_state}.");
+                    _singer.Sing(lyrics);
+                    Console.WriteLine("Applause!");
+                    Thread.Sleep(3000);
+                }
+            }
+            MainMenu();
+            
         }
         
         private void Exit()

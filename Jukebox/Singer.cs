@@ -24,9 +24,16 @@ namespace Jukebox
 
         public string[] GetSong(string title)
         {
-            return songs[title];
+            try
+            {
+                return songs[title];
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
         
-        public abstract void Sing(string title);
+        public abstract void Sing(string[] lyrics);
     }
 }
