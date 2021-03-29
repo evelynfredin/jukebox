@@ -8,15 +8,6 @@ namespace Jukebox
 {
     public class Cli
     {
-        private static List<string> _commands = new[]
-        {
-            "SHUFFLE",
-            "ADD",
-            "LIST",
-            "SING",
-            "EXIT"
-        }.ToList();
-        
         DateTime today = DateTime.Today;
         private string _username;
         private string _state;
@@ -36,37 +27,36 @@ namespace Jukebox
             _username = Console.ReadLine();
             MainMenu();
         }
-        
+
         private void CheckState()
         {
             _state = Console.ReadLine();
-
             while (true)
             {
                 var currentState = _state.ToUpper();
-                if (_commands.Contains(currentState))
+                switch (currentState)
                 {
-                    switch (currentState)
-                    {
-                        case "ADD":
-                            Add();
-                            break;
-                        case "SHUFFLE":
-                            Shuffle();
-                            break;
-                        case "LIST":
-                            List();
-                            break;
-                        case "SING":
-                            Sing();
-                            break;
-                        case "EXIT":
-                            Exit();
-                            break;
-                    }
+                    case "ADD":
+                        Add();
+                        break;
+                    case "SHUFFLE":
+                        Shuffle();
+                        break;
+                    case "LIST":
+                        List();
+                        break;
+                    case "SING":
+                        Sing();
+                        break;
+                    case "EXIT":
+                        Exit();
+                        break;
+                    default:
+                        break;
                 }
                 break;
             }
+
             MainMenu();
         }
 
@@ -89,23 +79,39 @@ namespace Jukebox
         {
             while (_state != ":q")
             {
-                Console.Clear(); 
-                Console.WriteLine("Add"); 
+                Console.Clear();
+                Console.WriteLine("What is the song title?");
+                var title = Console.ReadLine();
+                Console.WriteLine("Type the lyrics (':s' to save):");
+                var lyrics = new List<string>();
+                var line = "";
+                while (true)
+                {
+                    line = Console.ReadLine();
+                    if (line == ":s")
+                    {
+                        break;
+                    }
+                    lyrics.Add(line);
+                }
+                _singer.AddSong(title, lyrics.ToArray());
+                _state = "";
+                Console.WriteLine("New Song Added!");
                 Thread.Sleep(1000);
+                break;
             }
         }
 
         private void Shuffle()
         {
-                Console.Clear();
-                Console.WriteLine("Shuffling playlist...");
-                Thread.Sleep(2000);
-                var shuffling = rnd.Next(0, _singer.GetTitles().Count);
-                var shuffledSong = _singer.GetSong(_singer.GetTitles()[shuffling]);
-                _singer.Sing(shuffledSong);
-                Console.WriteLine("Done singing, redirecting you back.");
-                Thread.Sleep(3000);
-
+            Console.Clear();
+            Console.WriteLine("Shuffling playlist...");
+            Thread.Sleep(2000);
+            var shuffling = rnd.Next(0, _singer.GetTitles().Count);
+            var shuffledSong = _singer.GetSong(_singer.GetTitles()[shuffling]);
+            _singer.Sing(shuffledSong);
+            Console.WriteLine("Done singing, redirecting you back.");
+            Thread.Sleep(3000);
         }
 
         private void List()
@@ -123,6 +129,7 @@ namespace Jukebox
                 Console.WriteLine("Type ':q' to go back to the main menu.");
                 _state = Console.ReadLine();
             }
+
             MainMenu();
         }
 
@@ -148,6 +155,7 @@ namespace Jukebox
                         Thread.Sleep(1000);
                         continue;
                     }
+
                     Console.Clear();
                     Console.WriteLine($"Now playing {_state}.");
                     _singer.Sing(lyrics);
@@ -155,6 +163,7 @@ namespace Jukebox
                     Thread.Sleep(3000);
                 }
             }
+
             MainMenu();
         }
 
@@ -163,7 +172,7 @@ namespace Jukebox
             Console.Clear();
             Console.WriteLine("GoodBye");
             Thread.Sleep(500);
-            Environment.Exit(0);   
+            Environment.Exit(0);
         }
     }
 }

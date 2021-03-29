@@ -28,10 +28,15 @@ namespace Jukebox
             {
                 return songs[title];
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }
+        }
+
+        public void AddSong(string title, string[] lyrics)
+        {
+            songs.Add(title, lyrics);
         }
         
         public abstract void Sing(string[] lyrics);
