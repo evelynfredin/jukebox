@@ -21,6 +21,7 @@ namespace Jukebox
         private string _username;
         private string _state;
         private Singer _singer;
+        private Random rnd = new Random();
 
         public Cli(Singer singer)
         {
@@ -79,22 +80,32 @@ namespace Jukebox
             Console.WriteLine("Type: 'SING' to play a song.");
             Console.WriteLine($"Type: 'LIST' to see all {_singer.SongCount()} songs in memory.");
             Console.WriteLine("Type: 'EXIT' to quit the Jukebox.");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("What would you like to do?");
             CheckState();
         }
 
         private void Add()
         {
-            Console.Clear();
-            Console.WriteLine("Add");
-            Thread.Sleep(1000);
+            while (_state != ":q")
+            {
+                Console.Clear(); 
+                Console.WriteLine("Add"); 
+                Thread.Sleep(1000);
+            }
         }
 
         private void Shuffle()
         {
-            Console.Clear();
-            Console.WriteLine("You be shufflin'");
-            Thread.Sleep(1000);
+                Console.Clear();
+                Console.WriteLine("Shuffling playlist...");
+                Thread.Sleep(2000);
+                var shuffling = rnd.Next(0, _singer.GetTitles().Count);
+                var shuffledSong = _singer.GetSong(_singer.GetTitles()[shuffling]);
+                _singer.Sing(shuffledSong);
+                Console.WriteLine("Done singing, redirecting you back.");
+                Thread.Sleep(3000);
+
         }
 
         private void List()
@@ -145,9 +156,8 @@ namespace Jukebox
                 }
             }
             MainMenu();
-            
         }
-        
+
         private void Exit()
         {
             Console.Clear();
