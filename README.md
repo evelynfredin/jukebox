@@ -1,6 +1,6 @@
 # Jukebox Singing Wars
 
-![ezgif-1-0163116d8d09](https://user-images.githubusercontent.com/45714191/112943112-588d1c80-9131-11eb-8d69-b9b2ef673a10.gif)
+![ezgif-1-ba9328b49388](https://user-images.githubusercontent.com/45714191/112944139-b9692480-9132-11eb-99d4-73398ae4559f.gif)
 
 The crowd is going insane, this party can't stop now. This **Jukebox T-1000** is filled with greatest-hits, but its up to you to decide who is going to sing.
 
