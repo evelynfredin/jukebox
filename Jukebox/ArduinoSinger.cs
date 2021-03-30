@@ -28,7 +28,7 @@ namespace Jukebox
                 port.WriteLine(line);
                 Thread.Sleep(1500);
             }
-            port.Dispose();
+            port.WriteLine("");
             port.Close();
         }
     }
