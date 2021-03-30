@@ -12,8 +12,9 @@ namespace Jukebox
         public static void Main(string[] args)
         {
             var songs = Loader.Load();
-            var singer = new CmdSinger(songs);
-            var cli = new Cli(singer);
+            var cmd = new CmdSinger(songs);
+            var uno = new ArduinoSinger(songs);
+            var cli = new Cli(cmd);
             cli.Start();
         }
     }

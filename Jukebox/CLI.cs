@@ -81,7 +81,7 @@ namespace Jukebox
             {
                 Console.Clear();
                 Console.WriteLine("What is the song title?");
-                var title = Console.ReadLine();
+                var title = Console.ReadLine().ToUpper();
                 Console.WriteLine("Type the lyrics (':s' to save):");
                 var lyrics = new List<string>();
                 var line = "";
@@ -144,20 +144,21 @@ namespace Jukebox
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("Enter song name or ':q' to go back to main menu.");
                 _state = Console.ReadLine();
+                var song = _state.ToUpper();
                 if (_state != ":q")
                 {
                     Console.WriteLine("Looking for song...");
                     Thread.Sleep(3000);
-                    var lyrics = _singer.GetSong(_state);
+                    var lyrics = _singer.GetSong(song);
                     if (lyrics == null)
                     {
-                        Console.WriteLine($"Song {_state} not found.");
+                        Console.WriteLine($"Song {song} not found.");
                         Thread.Sleep(1000);
                         continue;
                     }
 
                     Console.Clear();
-                    Console.WriteLine($"Now playing {_state}.");
+                    Console.WriteLine($"Now playing {song}.");
                     _singer.Sing(lyrics);
                     Console.WriteLine("Applause!");
                     Thread.Sleep(3000);
@@ -170,7 +171,7 @@ namespace Jukebox
         private void Exit()
         {
             Console.Clear();
-            Console.WriteLine("GoodBye");
+            Console.WriteLine($"Ok, {_username}, we'll sing together some other time!");
             Thread.Sleep(500);
             Environment.Exit(0);
         }

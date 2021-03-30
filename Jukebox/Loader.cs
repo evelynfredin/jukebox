@@ -8,7 +8,7 @@ namespace Jukebox
         {
             var dictionary = new Dictionary<string, string[]>();
             
-            dictionary.Add("Master Of Puppets", new []
+            dictionary.Add("MASTER OF PUPPETS", new []
             {
                 "Master!",
                 "Master!",
@@ -16,15 +16,19 @@ namespace Jukebox
                 "I'm pulling your strings"
             });
             
-            dictionary.Add("Best Song", new []
+            dictionary.Add("BEST SONG", new []
             {
-                "We're no strangers to love",
-                "You know the rules and so do I",
-                "A full commitment's what I'm thinking of",
-                "You've been Rick-rolled!"
+                "We're no",
+                "strangers to love",
+                "You know the rules",
+                "And so do I",
+                "A full commitment's what",
+                "I'm thinking of",
+                "You've been",
+                "Rick-rolled!"
             });
             
-            dictionary.Add("Karma Police", new []
+            dictionary.Add("KARMA POLICE", new []
             {
                 "Karma police",
                 "Arrest this man",
